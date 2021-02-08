@@ -1,9 +1,11 @@
 require("dotenv").config();
+const express = require("express");
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const Keyv = require("keyv");
 
+const app = express();
 const client = new Discord.Client();
 const keyv = new Keyv(process.env.DATABASE);
 
@@ -30,6 +32,11 @@ keyv.on("error", err => console.error("Keyv connection error:\n", err));
 client.login(process.env.TOKEN).catch(console.error);
 
 client.setInterval(checkWebpage, DIS_CONSTANT);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Webserver running on port: " + PORT);
+});
 
 function getPartialElement($, latestPath, partial) {
     return $(SELECTOR_ALL_NEWS + " > div." + latestPath + partial);
