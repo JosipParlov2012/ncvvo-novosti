@@ -1,0 +1,25 @@
+{
+  "name": "ncvvo-novosti",
+  "version": "1.0.0",
+  "description": "A simple Node app which delivers NCVVO news to Discord.",
+  "main": "client.js",
+  "scripts": {
+    "start": "node client.js",
+    "reinstall": "npm i"
+  },
+  "dependencies": {
+    "@keyv/mysql": "^1.1.4",
+    "cheerio": "^0.22.0",
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0",
+    "keyv": "^4.0.3",
+    "node-fetch": "^2.6.1"
+  },
+  "engines": {
+    "node": "14.15.1",
+    "npm": "6.14.8"
+  },
+  "repository": "",
+  "author": "Josip Parlov",
+  "license": "MIT"
+}
