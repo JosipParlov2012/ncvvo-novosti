@@ -76,10 +76,7 @@ async function checkWebpage() {
     const text = getText($, latestPath);
 
     const saved = await keyv.get("saved") || [];
-    if (saved.includes(time)) {
-        console.log("already saved " + time);
-        return;
-    }
+    if (saved.includes(time)) return;
 
     saved.push(time);
     await keyv.set("saved", saved);
