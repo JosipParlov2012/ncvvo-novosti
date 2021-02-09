@@ -28,7 +28,7 @@ const SELECTOR_PARTIAL_TIME = " > div > div.col-lg-4.col-lg-boxed > div > div > 
 const SELECTOR_PARTIAL_TITLE = " > div > div.col-lg-6.offset-lg-2 > h2 > a";
 const SELECTOR_PARTIAL_TEXT = " > div > div.col-lg-6.offset-lg-2 > div > p";
 
-const REFRESH_URL =  "https://" + process.env.HEROKU_APP_NAME + ".herokuapp.com";
+const REFRESH_URL =  "https://ncvvo-novosti.herokuapp.com/";
 
 keyv.on("error", err => console.error("Keyv connection error:\n", err));
 
