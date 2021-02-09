@@ -18,6 +18,7 @@ const config = require("./config.json");
 const DIS_CONSTANT = 6.12 * (120 * 25 * 20);
 
 const COLOR = "#367fff";
+const REFRESH_INTERVAL = 20 * 60 * 1000;
 
 const API_URL = "https://www.ncvvo.hr";
 const ALL_NEWS_URL = API_URL + "/vrsta-korisnika/pristupnici-mature/";
@@ -26,6 +27,8 @@ const SELECTOR_ALL_NEWS = "#content > main > div.post-archive";
 const SELECTOR_PARTIAL_TIME = " > div > div.col-lg-4.col-lg-boxed > div > div > time";
 const SELECTOR_PARTIAL_TITLE = " > div > div.col-lg-6.offset-lg-2 > h2 > a";
 const SELECTOR_PARTIAL_TEXT = " > div > div.col-lg-6.offset-lg-2 > div > p";
+
+const REFRESH_URL =  "https://" + process.env.HEROKU_APP_NAME + ".herokuapp.com/refresh";
 
 keyv.on("error", err => console.error("Keyv connection error:\n", err));
 
@@ -37,6 +40,14 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Webserver running on port: " + PORT);
 });
+
+app.get("refresh", ((request, response) => {
+    response.send("OK");
+}));
+
+setInterval(() => {
+    fetch(REFRESH_URL);
+}, REFRESH_INTERVAL);
 
 function getPartialElement($, latestPath, partial) {
     return $(SELECTOR_ALL_NEWS + " > div." + latestPath + partial);
