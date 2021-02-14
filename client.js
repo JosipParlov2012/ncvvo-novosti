@@ -9,7 +9,7 @@ const app = express();
 const client = new Discord.Client();
 const keyv = new Keyv(process.env.DATABASE);
 
-const config = require("./config.json");
+const channels = ["692147745699659789"];
 
 /**\
  //   Inteval
@@ -99,20 +99,9 @@ async function checkWebpage() {
         .setDescription(description)
         .setTimestamp(Date.now());
 
-    for (let guildID of Object.keys(config)) {
-        const guild = client.guilds.resolve(guildID);
-        if (!guild) {
-            console.error("Invalid guild in config: " + guildID);
-            continue;
-        }
-
-        const channelID = config[guildID];
+    for (let channelID of channels) {
         const channel = client.channels.resolve(channelID);
-        if (!channel) {
-            console.error("Invalid guild in config: " + channel);
-            continue;
-        }
-
-        channel.send(embed);
+        if (channel) channel.send(embed);
+        else console.log("Invalid guild in config: " + channel);
     }
 }
