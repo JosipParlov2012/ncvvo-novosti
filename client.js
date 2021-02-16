@@ -7,7 +7,7 @@ const Keyv = require("keyv");
 
 const app = express();
 const client = new Discord.Client();
-const keyv = new Keyv(process.env.DATABASE);
+let keyv = new Keyv(process.env.DATABASE);
 
 const channels = ["692147746198519820"];
 
@@ -30,7 +30,14 @@ const SELECTOR_PARTIAL_TEXT = " > div > div.col-lg-6.offset-lg-2 > div > p";
 
 const REFRESH_URL =  "https://ncvvo-novosti.herokuapp.com/";
 
-keyv.on("error", err => console.error("Keyv connection error:\n", err));
+keyv.on("error", err => {
+    if (!err.includes("closed state")) {
+        keyv = new Keyv(process.env.DATABASE)
+        console.log("Reconnected Keyv connection.");
+        return;
+    }
+    console.error("Keyv connection error:\n", err);
+});
 
 client.login(process.env.TOKEN).catch(console.error);
 
