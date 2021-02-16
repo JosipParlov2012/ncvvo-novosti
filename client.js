@@ -32,11 +32,11 @@ const REFRESH_URL =  "https://ncvvo-novosti.herokuapp.com/";
 
 keyv.on("error", err => {
     if (!err.includes("closed state")) {
-        keyv = new Keyv(process.env.DATABASE)
-        console.log("Reconnected Keyv connection.");
+        console.error("Keyv connection error:\n", err);
         return;
     }
-    console.error("Keyv connection error:\n", err);
+    keyv = new Keyv(process.env.DATABASE)
+    console.log("Reconnected Keyv connection.");
 });
 
 client.login(process.env.TOKEN).catch(console.error);
