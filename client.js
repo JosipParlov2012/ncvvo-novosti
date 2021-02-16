@@ -9,7 +9,7 @@ const app = express();
 const client = new Discord.Client();
 const keyv = new Keyv(process.env.DATABASE);
 
-const channels = ["692147745699659789"];
+const channels = ["692147746198519820"];
 
 /**\
  //   Inteval
