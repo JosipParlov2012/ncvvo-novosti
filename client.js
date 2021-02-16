@@ -90,7 +90,7 @@ async function checkWebpage() {
     saved.push(time);
     await keyv.set("saved", saved);
 
-    const description = "> " + text.replace(/\n/g, "\n> ") + "\n\n[Saznaj više...](" + redirect + ")";
+    const description = (text ? "> " + text.replace(/\n/g, "\n> ") : "") + "\n\n[Saznaj više...](" + redirect + ")";
 
     const embed = new Discord.MessageEmbed()
         .setTitle(title)
@@ -102,6 +102,6 @@ async function checkWebpage() {
     for (let channelID of channels) {
         const channel = client.channels.resolve(channelID);
         if (channel) channel.send(embed);
-        else console.log("Invalid guild in config: " + channel);
+        else console.log("Invalid channel in config: " + channel);
     }
 }
