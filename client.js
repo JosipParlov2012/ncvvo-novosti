@@ -4,8 +4,9 @@ const express = require("express");
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
+const Keyv = require("keyv");
 
-const Keyv = require("./database");
+const keyv = new Keyv(process.env.DATABASE);
 
 const app = express();
 const client = new Discord.Client();
@@ -30,6 +31,10 @@ const SELECTOR_PARTIAL_TITLE = " > div > div.col-lg-6.offset-lg-2 > h2 > a";
 const SELECTOR_PARTIAL_TEXT = " > div > div.col-lg-6.offset-lg-2 > div > p";
 
 const REFRESH_URL = "https://ncvvo-novosti.herokuapp.com/";
+
+keyv.on("error", err => {
+    console.error("Keyv connection error:\n", err);
+});
 
 client.login().catch(console.error);
 
@@ -83,11 +88,11 @@ async function checkWebpage() {
     const redirect = getRedirect($, latestPath);
     const text = getText($, latestPath);
 
-    const saved = await Keyv.get("saved") || [];
+    const saved = await keyv.get("saved") || [];
     if (saved.includes(time)) return;
 
     saved.push(time);
-    await Keyv.set("saved", saved);
+    await keyv.set("saved", saved);
 
     const description = (text ? "> " + text.replace(/\n/g, "\n> ") : "") + "\n\n[Saznaj više...](" + redirect + ")";
 
