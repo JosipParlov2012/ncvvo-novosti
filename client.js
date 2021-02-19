@@ -88,7 +88,11 @@ async function checkWebpage() {
     const redirect = getRedirect($, latestPath);
     const text = getText($, latestPath);
 
-    const saved = await keyv.get("saved") || [];
+    const saved = await keyv.get("saved") || null;
+    if (!saved) {
+        console.log("Table is empty.");
+        return;
+    }
     if (saved.includes(time)) return;
 
     saved.push(time);
