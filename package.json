@@ -8,7 +8,7 @@
     "reinstall": "npm i"
   },
   "dependencies": {
-    "@keyv/mysql": "^1.1.4",
+    "@keyv/mysql": "git://github.com/Ryanika-Coder/keyv-mysql.git#50d73a548a776d8454744bf9037ae6a68a6a8843",
     "cheerio": "^0.22.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
