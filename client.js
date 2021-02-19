@@ -31,7 +31,7 @@ const SELECTOR_PARTIAL_TEXT = " > div > div.col-lg-6.offset-lg-2 > div > p";
 
 const REFRESH_URL = "https://ncvvo-novosti.herokuapp.com/";
 
-client.login(process.env.TOKEN).catch(console.error);
+client.login().catch(console.error);
 
 client.setInterval(checkWebpage, DIS_CONSTANT);
 
