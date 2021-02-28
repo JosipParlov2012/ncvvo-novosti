@@ -19,7 +19,13 @@ const channels = ["692147746198519820"];
  */
 const DIS_CONSTANT = 6.12 * (120 * 25 * 20);
 
-const COLOR = "#367fff";
+const ERROR_BLACKLIST = [
+    "This socket has been ended by the other party",
+    "Can't add new command when connection is in closed state"
+];
+
+const COLOR_NORMAL = "#367fff";
+const COLOR_WARN = "#ff0000";
 const REFRESH_INTERVAL = 20 * 60 * 1000;
 
 const API_URL = "https://www.ncvvo.hr";
@@ -103,7 +109,7 @@ async function checkWebpage() {
     const embed = new Discord.MessageEmbed()
         .setTitle(title)
         .setURL(redirect)
-        .setColor(COLOR)
+        .setColor(COLOR_NORMAL)
         .setDescription(description)
         .setTimestamp(Date.now());
 
@@ -113,3 +119,26 @@ async function checkWebpage() {
         else console.log("Invalid channel in config: " + channel);
     }
 }
+
+async function handleError(error, code = 0) {
+    setTimeout(() => process.exit(code), 1000);
+
+    // Send msg to webhook log.
+    if (!(error instanceof Error)) return;
+    if (ERROR_BLACKLIST.includes(error.message)) return;
+    const embed = new Discord.MessageEmbed()
+        .setTitle(error.message)
+        .setDescription(">>> " + error.stack)
+        .setColor(COLOR_WARN)
+        .toJSON();
+    await fetch(process.env.WEBHOOK_ERROR, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({embeds: [embed]})
+    });
+}
+
+process.on("uncaughtException", async error => await handleError(error, 1));
+process.on("unhandledRejection", async error => await handleError(error,1));
+process.on("SIGTERM", async () => await handleError());
+process.on("SIGINT", async () => await handleError());
