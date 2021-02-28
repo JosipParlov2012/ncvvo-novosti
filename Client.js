@@ -7,7 +7,7 @@ const Keyv = require("keyv");
 
 const keyv = new Keyv(process.env.DATABASE);
 
-const client = new Discord.Client();
+const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES"]});
 
 const Config = require("./files/Config");
 require("./files/NecromancerScript");
