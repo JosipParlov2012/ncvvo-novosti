@@ -2,9 +2,9 @@
   "name": "ncvvo-novosti",
   "version": "1.0.0",
   "description": "A simple Node app which delivers NCVVO news to Discord.",
-  "main": "client.js",
+  "main": "Client.js",
   "scripts": {
-    "start": "node client.js",
+    "start": "node Client.js",
     "reinstall": "npm i"
   },
   "dependencies": {
