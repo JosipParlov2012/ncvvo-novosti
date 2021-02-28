@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const fetch = require("node-fetch");
 
 const Config = require("./Config");
 
