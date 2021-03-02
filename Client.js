@@ -11,6 +11,7 @@ const client = new Discord.Client({intents: ["GUILDS", "GUILD_MESSAGES"]});
 
 const Config = require("./files/Config");
 require("./files/NecromancerScript");
+require("./files/ErrorHandler");
 
 /**\
  //   Inteval
